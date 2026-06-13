@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đặt lịch khám</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-success">
+    <a href="/patient/dashboard" class="navbar-brand">Bệnh nhân</a>
+    <a href="/logout" class="btn btn-outline-light btn-sm">Đăng xuất</a>
+</nav>
+
+<div class="container mt-4">
+    <div class="col-md-7 mx-auto">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white">
+                <h4>Đặt lịch khám</h4>
+            </div>
+
+            <div class="card-body">
+                <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+                <form th:action="@{/patient/appointments/create}"
+                      th:object="${appointmentDTO}"
+                      method="post">
+
+                    <div class="form-group">
+                        <label>Chuyên khoa</label>
+                        <select th:field="*{specialtyId}" class="form-control">
+                            <option value="">-- Chọn chuyên khoa --</option>
+                            <option th:each="specialty : ${specialties}"
+                                    th:value="${specialty.id}"
+                                    th:text="${specialty.name}">
+                            </option>
+                        </select>
+                        <small class="text-danger"
+                               th:if="${#fields.hasErrors('specialtyId')}"
+                               th:errors="*{specialtyId}"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Bác sĩ</label>
+                        <select th:field="*{doctorId}" class="form-control">
+                            <option value="">-- Chọn bác sĩ --</option>
+                            <option th:each="doctor : ${doctors}"
+                                    th:value="${doctor.id}"
+                                    th:text="${doctor.user.fullName + ' - ' + doctor.specialty.name}">
+                            </option>
+                        </select>
+                        <small class="text-danger"
+                               th:if="${#fields.hasErrors('doctorId')}"
+                               th:errors="*{doctorId}"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ngày khám</label>
+                        <input type="date" th:field="*{appointmentDate}" class="form-control">
+                        <small class="text-danger"
+                               th:if="${#fields.hasErrors('appointmentDate')}"
+                               th:errors="*{appointmentDate}"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Giờ khám</label>
+                        <input type="time" th:field="*{appointmentTime}" class="form-control">
+                        <small class="text-danger"
+                               th:if="${#fields.hasErrors('appointmentTime')}"
+                               th:errors="*{appointmentTime}"></small>
+                    </div>
+
+                    <button class="btn btn-success">Đặt lịch</button>
+                    <a href="/patient/dashboard" class="btn btn-secondary">Quay lại</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

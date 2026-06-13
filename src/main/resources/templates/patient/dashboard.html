@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-success">
+    <span class="navbar-brand">Smart Healthcare - Bệnh nhân</span>
+    <a href="/logout" class="btn btn-outline-light btn-sm">Đăng xuất</a>
+</nav>
+
+<div class="container mt-4">
+    <div class="jumbotron bg-white shadow-sm">
+        <h3>Trang bệnh nhân</h3>
+        <p>Bệnh nhân có quyền đặt lịch khám, hủy lịch và xem lịch sử bệnh án.</p>
+
+        <a th:if="${role == 'PATIENT'}"
+           href="/patient/appointments/create"
+           class="btn btn-success">
+            Đặt lịch khám
+        </a>
+
+        <a th:if="${role == 'PATIENT'}"
+           href="/patient/appointments"
+           class="btn btn-info">
+            Lịch khám của tôi
+        </a>
+
+        <a th:if="${role == 'PATIENT'}"
+           href="/patient/history"
+           class="btn btn-warning">
+            Lịch sử bệnh án
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

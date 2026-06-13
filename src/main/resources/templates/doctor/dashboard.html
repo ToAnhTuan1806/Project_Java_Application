@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-primary">
+    <span class="navbar-brand">Smart Healthcare - Bác sĩ</span>
+    <a href="/logout" class="btn btn-outline-light btn-sm">Đăng xuất</a>
+</nav>
+
+<div class="container mt-4">
+    <div class="jumbotron bg-white shadow-sm">
+        <h3>Trang bác sĩ</h3>
+        <p>Bác sĩ có quyền xem danh sách bệnh nhân chờ khám và nhập kết quả khám.</p>
+
+        <a th:if="${role == 'DOCTOR'}"
+           href="/doctor/appointments"
+           class="btn btn-primary">
+            Danh sách chờ khám
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

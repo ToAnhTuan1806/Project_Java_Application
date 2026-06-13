@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark">
+    <span class="navbar-brand">Smart Healthcare - Admin</span>
+    <a href="/logout" class="btn btn-outline-light btn-sm">Đăng xuất</a>
+</nav>
+
+<div class="container mt-4">
+    <div class="jumbotron bg-white shadow-sm">
+        <h3>Trang quản trị viên</h3>
+        <p>Admin có quyền quản lý danh mục thuốc và cấp phát thuốc.</p>
+
+        <a th:if="${role == 'ADMIN'}"
+           href="/admin/medicines"
+           class="btn btn-primary">
+            Quản lý thuốc
+        </a>
+
+        <a th:if="${role == 'ADMIN'}"
+           href="/admin/prescriptions"
+           class="btn btn-success">
+            Cấp phát thuốc
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

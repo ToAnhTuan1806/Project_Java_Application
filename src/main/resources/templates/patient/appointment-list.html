@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lịch khám của tôi</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-success">
+    <a href="/patient/dashboard" class="navbar-brand">Bệnh nhân</a>
+    <a href="/logout" class="btn btn-outline-light btn-sm">Đăng xuất</a>
+</nav>
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-info text-white">
+            <h4>Lịch khám của tôi</h4>
+        </div>
+
+        <div class="card-body">
+            <a href="/patient/appointments/create" class="btn btn-success mb-3">
+                Đặt lịch mới
+            </a>
+
+            <table class="table table-bordered table-hover bg-white">
+                <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Bác sĩ</th>
+                    <th>Chuyên khoa</th>
+                    <th>Ngày</th>
+                    <th>Giờ</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="appointment : ${appointments}">
+                    <td th:text="${appointment.id}"></td>
+                    <td th:text="${appointment.doctor.user.fullName}"></td>
+                    <td th:text="${appointment.doctor.specialty.name}"></td>
+                    <td th:text="${appointment.appointmentDate}"></td>
+                    <td th:text="${appointment.appointmentTime}"></td>
+                    <td th:text="${appointment.status}"></td>
+                    <td>
+                        <a th:if="${appointment.status.name() == 'WAITING'}"
+                           th:href="@{/patient/appointments/cancel/{id}(id=${appointment.id})}"
+                           class="btn btn-danger btn-sm">
+                            Hủy lịch
+                        </a>
+
+                        <span th:if="${appointment.status.name() != 'WAITING'}"
+                              class="text-muted">
+                            Không thể hủy
+                        </span>
+                    </td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(appointments)}">
+                    <td colspan="7" class="text-center text-muted">
+                        Bạn chưa có lịch khám nào
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <a href="/patient/dashboard" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

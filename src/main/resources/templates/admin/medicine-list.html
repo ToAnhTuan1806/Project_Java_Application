@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý thuốc</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark">
+    <a href="/admin/dashboard" class="navbar-brand">Admin</a>
+    <a href="/logout" class="btn btn-outline-light btn-sm">Đăng xuất</a>
+</nav>
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4>Quản lý thuốc</h4>
+        </div>
+
+        <div class="card-body">
+            <form method="get" action="/admin/medicines" class="form-inline mb-3">
+                <input type="text"
+                       name="keyword"
+                       th:value="${keyword}"
+                       class="form-control mr-2"
+                       placeholder="Tìm theo tên thuốc">
+
+                <button class="btn btn-info mr-2">Tìm kiếm</button>
+                <a href="/admin/medicines/create" class="btn btn-success">Thêm thuốc</a>
+            </form>
+
+            <table class="table table-bordered table-hover bg-white">
+                <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Tên thuốc</th>
+                    <th>Nhà sản xuất</th>
+                    <th>Giá</th>
+                    <th>Tồn kho</th>
+                    <th>Hành động</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="medicine : ${medicines}">
+                    <td th:text="${medicine.id}"></td>
+                    <td th:text="${medicine.name}"></td>
+                    <td th:text="${medicine.manufacturer}"></td>
+                    <td th:text="${medicine.price}"></td>
+                    <td th:text="${medicine.stockQuantity}"></td>
+                    <td>
+                        <a th:href="@{/admin/medicines/edit/{id}(id=${medicine.id})}"
+                           class="btn btn-warning btn-sm">Sửa</a>
+
+                        <a th:href="@{/admin/medicines/delete/{id}(id=${medicine.id})}"
+                           class="btn btn-danger btn-sm">Xóa</a>
+                    </td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(medicines)}">
+                    <td colspan="6" class="text-center text-muted">
+                        Không có thuốc nào
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

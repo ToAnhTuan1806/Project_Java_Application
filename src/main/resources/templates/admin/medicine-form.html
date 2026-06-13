@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Form thuốc</title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark">
+  <a href="/admin/medicines" class="navbar-brand">Quản lý thuốc</a>
+  <a href="/logout" class="btn btn-outline-light btn-sm">Đăng xuất</a>
+</nav>
+
+<div class="container mt-4">
+  <div class="col-md-7 mx-auto">
+    <div class="card shadow-sm">
+      <div class="card-header bg-success text-white">
+        <h4 th:text="${id == null ? 'Thêm thuốc' : 'Sửa thuốc'}"></h4>
+      </div>
+
+      <div class="card-body">
+        <form th:action="${id == null} ? @{/admin/medicines/create} : @{/admin/medicines/edit/{id}(id=${id})}"
+              th:object="${medicineDTO}"
+              method="post">
+
+          <div class="form-group">
+            <label>Tên thuốc</label>
+            <input type="text" th:field="*{name}" class="form-control">
+            <small class="text-danger"
+                   th:if="${#fields.hasErrors('name')}"
+                   th:errors="*{name}"></small>
+          </div>
+
+          <div class="form-group">
+            <label>Nhà sản xuất</label>
+            <input type="text" th:field="*{manufacturer}" class="form-control">
+            <small class="text-danger"
+                   th:if="${#fields.hasErrors('manufacturer')}"
+                   th:errors="*{manufacturer}"></small>
+          </div>
+
+          <div class="form-group">
+            <label>Giá thuốc</label>
+            <input type="number" th:field="*{price}" class="form-control">
+            <small class="text-danger"
+                   th:if="${#fields.hasErrors('price')}"
+                   th:errors="*{price}"></small>
+          </div>
+
+          <div class="form-group">
+            <label>Số lượng tồn kho</label>
+            <input type="number" th:field="*{stockQuantity}" class="form-control">
+            <small class="text-danger"
+                   th:if="${#fields.hasErrors('stockQuantity')}"
+                   th:errors="*{stockQuantity}"></small>
+          </div>
+
+          <button class="btn btn-success">Lưu</button>
+          <a href="/admin/medicines" class="btn btn-secondary">Quay lại</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
